@@ -9,9 +9,10 @@
         <div>
           <strong><%= bookmark.movie.title %></strong> - <%= bookmark.comment %>
         </div>
-        <%= link_to "Delete", list_bookmark_path(@list, bookmark),
+        <%= button_to "Delete", list_bookmark_path(@list, bookmark),
                     method: :delete,
-                    data: { confirm: "Are you sure?" },
+                    form_class: "d-inline",
+                    data: { turbo_confirm: "Are you sure?" },
                     class: "btn btn-sm btn-danger" %>
       </li>
     <% end %>
