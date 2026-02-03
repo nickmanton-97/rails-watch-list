@@ -60,3 +60,7 @@ group :development do
 end
 gem 'rspec-rails', group: [:test]
 gem 'rails-controller-testing', group: [:test]
+gem "simple_form"
+gem "bootstrap", "~> 5.3"
+
+gem "cssbundling-rails", "~> 1.4"
