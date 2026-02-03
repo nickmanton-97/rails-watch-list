@@ -6,19 +6,20 @@ class BookmarksController < ApplicationController
   end
 
   def create
-    @bookmark = @list.bookmarks.new(bookmark_params)
+    @bookmark = Bookmark.new(bookmark_params)
+    @bookmark.list = @list
     if @bookmark.save
-      redirect_to @list, notice: "Movie added to the list!"
+      redirect_to list_path(@list), notice: "Movie added to the list."
     else
-      # Render the new form again (or you could render list show page)
-      render :new
+      @bookmarks = @list.bookmarks
+      render "lists/show", status: :unprocessable_entity
     end
   end
 
   def destroy
     @bookmark = @list.bookmarks.find(params[:id])
     @bookmark.destroy
-    redirect_to @list, notice: "Bookmark removed!"
+    redirect_to list_path(@list), notice: "Bookmark removed."
   end
 
   private

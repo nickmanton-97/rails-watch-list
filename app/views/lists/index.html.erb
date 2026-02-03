@@ -6,10 +6,13 @@
   <% @lists.each do |list| %>
     <li class="list-group-item d-flex justify-content-between align-items-center">
       <%= link_to list.name, list_path(list) %>
-      <span>
+      <div>
         <%= link_to "Edit", edit_list_path(list), class: "btn btn-sm btn-secondary" %>
-        <%= link_to "Delete", list_path(list), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-sm btn-danger" %>
-      </span>
+        <%= link_to "Delete", list_path(list),
+                    method: :delete,
+                    data: { confirm: "Are you sure?" },
+                    class: "btn btn-sm btn-danger" %>
+      </div>
     </li>
   <% end %>
 </ul>

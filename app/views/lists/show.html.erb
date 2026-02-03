@@ -1,27 +1,27 @@
 <h1><%= @list.name %></h1>
 <p><%= @list.description %></p>
 
-<h2>Movies in this list</h2>
-<ul class="list-group mt-3">
+<h2>Bookmarks</h2>
+<ul class="list-group mb-3">
   <% @list.bookmarks.each do |bookmark| %>
-    <li class="list-group-item d-flex justify-content-between align-items-center">
-      <strong><%= bookmark.movie.title %></strong>
-      <span><%= bookmark.comment %></span>
-      <%= link_to "Delete", list_bookmark_path(@list, bookmark), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-sm btn-danger" %>
-    </li>
+    <% if bookmark.movie %>
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        <div>
+          <strong><%= bookmark.movie.title %></strong> - <%= bookmark.comment %>
+        </div>
+        <%= link_to "Delete", list_bookmark_path(@list, bookmark),
+                    method: :delete,
+                    data: { confirm: "Are you sure?" },
+                    class: "btn btn-sm btn-danger" %>
+      </li>
+    <% end %>
   <% end %>
 </ul>
 
-<h2>Add a movie</h2>
-<%= form_with(model: [@list, Bookmark.new]) do |f| %>
-  <div class="mb-3">
-    <%= f.label :movie_id, "Select Movie" %>
-    <%= f.collection_select :movie_id, Movie.all, :id, :title, prompt: "Choose a movie", class: "form-select" %>
-  </div>
-  <div class="mb-3">
-    <%= f.label :comment %>
-    <%= f.text_field :comment, class: "form-control" %>
-  </div>
+<h3>Add a Movie</h3>
+<%= simple_form_for [@list, @bookmark] do |f| %>
+  <%= f.input :movie_id, collection: Movie.all, label_method: :title, value_method: :id, prompt: "Select a movie" %>
+  <%= f.input :comment %>
   <%= f.submit "Add Movie", class: "btn btn-primary" %>
 <% end %>
 
